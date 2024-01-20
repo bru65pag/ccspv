@@ -30,9 +30,8 @@ fn (mut g Gene) compress() {
 fn (mut g Gene) uncompress() string {
     mut uncompressed := ''
     mut x:=g.compressed
-    for i:=0; i<g.sequence.len; i+=1 {
-       mut y := x & 0b00000011
-       x = x >> 2
+    for i:=0; i<sizeof(g.compressed)*8; i+=2 {
+       y := x >> i & 0b00000011
        z := g.b2l[y]
        uncompressed =  z + uncompressed
     } 
